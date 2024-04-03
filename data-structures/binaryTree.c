@@ -35,6 +35,26 @@ void insertValue(struct node* head, int value){
   }
 }
 
+void deleteValue(struct node* head, int value){
+  //TODO add implementation
+}
+
+int isValuePresent(struct node* head, int value){
+  if(head == NULL){
+    return -1;
+  }
+  if(head->data == value){
+    return 0;
+  }
+  if(head->data > value){
+    return isValuePresent(head->leftChild, value);
+  }
+  else{
+    return isValuePresent(head->rightChild, value);
+  }
+}
+
+
 void inorder(struct node* head){
   if(head == NULL){
     return;
@@ -52,5 +72,8 @@ int main(){
   insertValue(head,7);
   inorder(head);
   printf("\n");
+  printf("%d\n",isValuePresent(head,3));
+  printf("%d\n",isValuePresent(head,7));
+  printf("%d\n",isValuePresent(head,8));
   return 0;
 }
