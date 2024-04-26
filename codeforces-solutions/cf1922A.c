@@ -1,26 +1,30 @@
-#include <stdbool.h>
 #include <stdio.h>
 
 int main() {
-  int t, n;
+  int t;
   scanf("%d", &t);
   while (t-- > 0) {
+    int n;
     scanf("%d", &n);
-    char a[n + 1], b[n + 1], c[n + 1];
-    scanf("%s", &a);
-    scanf("%s", &b);
-    scanf("%s", &c);
-    bool flag = false;
+    char arr1[n + 1];
+    char arr2[n + 2];
+    char arr3[n + 3];
+    scanf("%s", &arr1);
+    scanf("%s", &arr2);
+    scanf("%s", &arr3);
+    int flag = 1;
     for (int i = 0; i < n; ++i) {
-      if (!(a[i] == c[i] || b[i] == c[i])) {
-        flag = true;
-        break;
+      if (arr1[i] == arr2[i] && arr1[i] != arr3[i]) {
+        flag = 0;
+      }
+      if (arr1[i] != arr2[i] && arr1[i] != arr3[i] && arr2[i] != arr3[i]) {
+        flag = 0;
       }
     }
-    if (flag) {
-      printf("Yes");
+    if (flag == 0) {
+      printf("YES\n");
     } else {
-      printf("No");
+      printf("NO\n");
     }
   }
   return 0;
