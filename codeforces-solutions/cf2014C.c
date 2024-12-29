@@ -53,43 +53,38 @@ void mergeSort(long long arr[], int l, int r)
     }
 }
 
-
-int main() {
+int main(){
   int t;
-  scanf("%d", &t);
-  while (t-- > 0) {
-    int n, c, d;
-    scanf("%d %d %d", &n, &c, &d);
-    long long arr[n * n];
-    for (int i = 0; i < n * n; ++i) {
-      scanf("%lld", &arr[i]);
+  scanf("%d",&t);
+  while(t-- > 0){
+    int n;
+    scanf("%d",&n);
+    long long arr[n];
+    long long sum = 0;
+    for(int i=0; i<n; ++i){
+      scanf("%lld",&arr[i]);
+      sum+=arr[i];
     }
-    mergeSort(arr, 0, n*n - 1);
-    long long min = arr[0];
-    long long prevMin = min;
-    long long arr2[n * n];
-    for (int i = 0; i < n * n; ++i) {
-      if (i % n == 0) {
-        arr2[i] = min;
-        prevMin = min;
-        min += d;
-        continue;
-      }
-      arr2[i] = prevMin + (i % n) * c;
-    }
-    mergeSort(arr2, 0, n*n - 1);
-    int flag = 1;
-    for (int i = 0; i < n * n; ++i) {
-      if (arr[i] != arr2[i]) {
-        flag = 0;
-        break;
+    double avg = ((double)sum)/(2*n);
+    int count = 0;
+    for(int i=0; i<n; ++i){
+      if(arr[i] < avg){
+        count++;
       }
     }
-    if (flag == 0) {
-      printf("NO\n");
-    } else {
-      printf("YES\n");
+    int mid = n/2 + 1;
+    if(n == 1 || n == 2){
+      printf("-1\n");
+    }
+    else if(count >= mid){
+      printf("0\n");
+    }
+    else{
+      mergeSort(arr, 0, n-1);
+      long long x = arr[mid-1]*2*n - sum + 1;
+      printf("%lld\n",x);
     }
   }
   return 0;
 }
+

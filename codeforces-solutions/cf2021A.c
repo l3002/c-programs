@@ -6,7 +6,7 @@ void merge(long long arr[], int l, int m, int r)
     int n1 = m - l + 1;
     int n2 = r - m;
 
-    long long L[n1], R[n2];
+    int L[n1], R[n2];
 
     for (i = 0; i < n1; i++)
         L[i] = arr[l + i];
@@ -53,43 +53,23 @@ void mergeSort(long long arr[], int l, int r)
     }
 }
 
-
-int main() {
+int main(){
   int t;
-  scanf("%d", &t);
-  while (t-- > 0) {
-    int n, c, d;
-    scanf("%d %d %d", &n, &c, &d);
-    long long arr[n * n];
-    for (int i = 0; i < n * n; ++i) {
-      scanf("%lld", &arr[i]);
+  scanf("%d",&t);
+  while(t-- > 0){
+    int n;
+    scanf("%d",&n);
+    long long x[n];
+    for(int i=0; i<n; ++i){
+      scanf("%lld",&x[i]);
     }
-    mergeSort(arr, 0, n*n - 1);
-    long long min = arr[0];
-    long long prevMin = min;
-    long long arr2[n * n];
-    for (int i = 0; i < n * n; ++i) {
-      if (i % n == 0) {
-        arr2[i] = min;
-        prevMin = min;
-        min += d;
-        continue;
-      }
-      arr2[i] = prevMin + (i % n) * c;
+    mergeSort(x, 0, n-1);
+    long long maxFloor = x[0];
+    for(int i=1; i<n; ++i){
+      maxFloor = (x[i] + maxFloor)/2;
     }
-    mergeSort(arr2, 0, n*n - 1);
-    int flag = 1;
-    for (int i = 0; i < n * n; ++i) {
-      if (arr[i] != arr2[i]) {
-        flag = 0;
-        break;
-      }
-    }
-    if (flag == 0) {
-      printf("NO\n");
-    } else {
-      printf("YES\n");
-    }
+    printf("%lld\n",maxFloor);
   }
   return 0;
 }
+

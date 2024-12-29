@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdio.h> 
 
 void merge(long long arr[], int l, int m, int r)
 {
@@ -53,43 +53,36 @@ void mergeSort(long long arr[], int l, int r)
     }
 }
 
-
-int main() {
+int main(){
   int t;
-  scanf("%d", &t);
-  while (t-- > 0) {
-    int n, c, d;
-    scanf("%d %d %d", &n, &c, &d);
-    long long arr[n * n];
-    for (int i = 0; i < n * n; ++i) {
-      scanf("%lld", &arr[i]);
+  scanf("%d",&t);
+  while(t-- > 0){
+    int n,k;
+    scanf("%d %d",&n,&k);
+    long long arr[n];
+    for(int i=0; i<n; ++i){
+      scanf("%lld",&arr[i]);
     }
-    mergeSort(arr, 0, n*n - 1);
-    long long min = arr[0];
-    long long prevMin = min;
-    long long arr2[n * n];
-    for (int i = 0; i < n * n; ++i) {
-      if (i % n == 0) {
-        arr2[i] = min;
-        prevMin = min;
-        min += d;
-        continue;
+    mergeSort(arr, 0, n-1);
+    long long sum = 0;
+    long long prefix[n];
+    for(int i=0; i<n; ++i){
+      prefix[i] = sum;
+      sum += arr[i];
+    }
+    long long minSum = sum;
+    long long suffixSum = 0;
+    int iter = 1;
+    while(k >= 0){
+      long long cSum = prefix[2*k] + suffixSum;
+      if(cSum < minSum){
+        minSum = cSum;
       }
-      arr2[i] = prevMin + (i % n) * c;
+      suffixSum += arr[n-iter];
+      iter++;
+      k--;
     }
-    mergeSort(arr2, 0, n*n - 1);
-    int flag = 1;
-    for (int i = 0; i < n * n; ++i) {
-      if (arr[i] != arr2[i]) {
-        flag = 0;
-        break;
-      }
-    }
-    if (flag == 0) {
-      printf("NO\n");
-    } else {
-      printf("YES\n");
-    }
+    printf("%lld\n",sum - minSum);
   }
   return 0;
 }
