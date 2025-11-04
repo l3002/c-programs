@@ -18,55 +18,53 @@ int main() {
       count[arr[i]]++;
     }
 
-    int f0 = 0;
     int mex = n;
-    for (int i = 0; i < n; ++i) {
-      if (count[i] == 0) {
-        f0 = 1;
+    for(int i=0; i<n; ++i){
+      if(!count[i]){
         mex = i;
-        break;
-      } else if (count[i] == 1) {
         break;
       }
     }
 
-    if (f0) {
-      long long sum = ((mex - 1) * (long long)mex) / 2;
-      long long csum = 0;
-      int check[mex];
-      for(int i=0; i<mex; ++i){
-        check[mex] = 1; 
+    int bf[mex];
+
+    for(int i=0; i<mex; ++i){
+      bf[i] = 0;
+    }
+
+    long long mexsum = (((long long) mex) * (mex - 1))/2;
+    long long csum = 0;
+    int f0 = 1;
+    for(int i=0; i<n; ++i){
+      if(arr[i] < mex && !bf[arr[i]]){
+        csum += arr[i];
+        bf[arr[i]] = 1;
       }
-      for (int i = 0; i < n; ++i) {
-        if (arr[i] < mex) {
-          if(check[arr[i]]){
-            csum += arr[i];
-          }
-          check[arr[i]] = 0;
-          count[arr[i]]--;
-        }
-        if (csum == sum) {
-          f0 = i+1;
-          break;
-        }
+      if(csum == mexsum){
+        f0 = i+1;
+        break;
       }
-      int ans = 1;
-      for(int i=0; i<mex && ans; ++i){
-        printf("count %d %d\n",i,count[i]);
-        if(!count[i]){
-          ans = 0;
-          break;
-        }
+    }
+
+    for(int i=0; i<mex; ++i){
+      bf[i] = 0;
+    }
+
+    csum = 0;
+    for(int i=f0; i<n; ++i){
+      if(arr[i] < mex && !bf[arr[i]]){
+        csum += arr[i];
+        bf[arr[i]] = 1;
       }
-      if(ans){
-        printf("2\n1 %d\n%d %d\n", f0, f0 + 1, n);
+      if(csum == mexsum){
+        break;
       }
-      else{
-        printf("-1\n");
-      }
-    } else {
+    }
+    if(csum == mexsum){
+      printf("2\n1 %d\n%d %d\n",f0, f0+1, n);
+    }
+    else{
       printf("-1\n");
     }
   }
-  return 0;
 }

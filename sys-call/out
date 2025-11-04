@@ -1,0 +1,4 @@
+child process (id = 3685) x - 42
+child process (id = 3685) x - 32
+parent process of 3685 (id = 3684) x - 42
+parent process of 3685 (id = 3684) x - 52
